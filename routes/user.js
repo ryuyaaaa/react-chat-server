@@ -52,6 +52,7 @@ router.post('/signup', (req, res) => {
     });
 });
 
+/*
 router.post('/login', (req, res) => {
     var sql = 'select * from users where email = ? and password = ?';
     app.connection.query(sql, [req.body.email, req.body.password], (error, results, fields) => {
@@ -78,7 +79,11 @@ router.post('/login', (req, res) => {
     });
 });
 
+*/
+
 /*--- /api/users/signupにPOSTアクションでアクセスしたときの処理 ---*/
+
+/*
 router.post('/signup', (req, res) => {
     var sql = 'select * from users where uid = ?';
     app.connection.query(sql, req.body.uid, (error, results, fields) => {
@@ -124,5 +129,7 @@ router.post('/signup', (req, res) => {
 
     });
 });
+
+*/
 
 module.exports = router;
