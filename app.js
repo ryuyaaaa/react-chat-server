@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+//var http = require('http').Server(app);
+var io = require('socket.io')(app);
 var bodyParser = require('body-parser');
 
 var redis = require('redis');
@@ -50,7 +50,7 @@ app.get('/', function (req, res) {
 */
 
 app.listen(PORT);
-http.listen(PORT);
+//http.listen(PORT);
 console.log('listen on port ' + PORT);
 
 exports.client = client;
