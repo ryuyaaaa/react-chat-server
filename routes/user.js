@@ -22,7 +22,7 @@ router.post('/login', (req, res) => {
             console.log('ログイン可能');
             console.log(results);
 
-            var param = {'message': 'POSTアクションのリクエストに成功しました'};
+            var param = {'uid': req.body.uid};
             res.header('Content-Type', 'application/json; charset=utf-8')
                 .status(200)
                 .send(param);
