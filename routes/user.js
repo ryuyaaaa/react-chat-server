@@ -9,12 +9,21 @@ var app = require('./../app');
 router.post('/login', (req, res) => {
     app.client.get(req.body.email, (error, reply) => {
         if (error) {
+            console.log('存在しない');
+
             var param = {'message': 'POSTアクションのリクエストに失敗しました'};
             res.header('Content-Type', 'application/json; charset=utf-8')
                 .status(401)
                 .send(param);
             console.log(req.body);
         } else {
+            console.log('ログイン可能');
+
+            var param = {'uid': req.body.uid};
+            res.header('Content-Type', 'application/json; charset=utf-8')
+                .status(200)
+                .send(param);
+            console.log(req.body);            
 
         }
     });
