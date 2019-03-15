@@ -48,6 +48,10 @@ router.post('/signup', (req, res) => {
 
             app.client.hset(req.body.uid, 'email', req.body.email, (err, reply) => {
 
+                app.client.hget(req.body.uid, 'email', (err, reply) => {
+                    console.log(reply);
+                });
+
                 console.log(reply);
                 app.client.hset(req.body.uid, 'password', req.body.password, (err, reply) => {
 
