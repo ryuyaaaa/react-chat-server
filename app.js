@@ -1,7 +1,6 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var mysql = require('mysql');
 
 var redis = require('redis');
 var url = require('url');
@@ -18,7 +17,7 @@ if (process.env.REDIS_URL) {
 
     client.auth(hr.auth.split(":")[1]);
 } else {
-    var connection = redis.createClient();
+    var client = redis.createClient();
 }
 
 // redis server 接続(db:0 default)

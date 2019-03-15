@@ -7,7 +7,7 @@ var app = require('./../app');
 /*--- /api/users/loginにPOSTアクションでアクセスしたときの処理 ---*/
 
 router.post('/login', (req, res) => {
-    connection.get(req.body.email, (error, reply) => {
+    app.client.get(req.body.email, (error, reply) => {
         if (error) {
             var param = {'message': 'POSTアクションのリクエストに失敗しました'};
             res.header('Content-Type', 'application/json; charset=utf-8')
@@ -23,7 +23,7 @@ router.post('/login', (req, res) => {
 
 /*--- /api/users/signupにPOSTアクションでアクセスしたときの処理 ---*/
 router.post('/signup', (req, res) => {
-    client.hget(req.body.uid, 'email', (err, reply) => {
+    app.client.hget(req.body.uid, 'email', (err, reply) => {
         console.log(reply);
 
         if (err) {
@@ -37,8 +37,8 @@ router.post('/signup', (req, res) => {
         } else {
             console.log('新規登録可能');
 
-            client.hset(req.body.uid, 'email', req.body.email, (err, reply) => {
-                client.hset(req.body.uid, 'password', req.body.password, (err, reply) => {
+            app.client.hset(req.body.uid, 'email', req.body.email, (err, reply) => {
+                app.client.hset(req.body.uid, 'password', req.body.password, (err, reply) => {
                     console.log('登録完了');
 
                     var param = {'uid': req.body.uid};
