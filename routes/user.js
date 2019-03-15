@@ -5,6 +5,53 @@ var app = require('./../app');
 /*--- /api/usersにGETアクションでアクセスしたときの処理 ---*/
 
 /*--- /api/users/loginにPOSTアクションでアクセスしたときの処理 ---*/
+
+router.post('/login', (req, res) => {
+    connection.get(req.body.email, (error, reply) => {
+        if (error) {
+            var param = {'message': 'POSTアクションのリクエストに失敗しました'};
+            res.header('Content-Type', 'application/json; charset=utf-8')
+                .status(401)
+                .send(param);
+            console.log(req.body);
+        } else {
+
+        }
+    });
+});
+
+
+/*--- /api/users/signupにPOSTアクションでアクセスしたときの処理 ---*/
+router.post('/signup', (req, res) => {
+    client.hget(req.body.uid, 'email', (err, reply) => {
+        console.log(reply);
+
+        if (reply) {
+            console.log('すでに存在');
+
+            var param = {'message': 'POSTアクションのリクエストに失敗しました'};
+            res.header('Content-Type', 'application/json; charset=utf-8')
+                .status(422)
+                .send(param);
+            console.log(req.body);
+        } else {
+            console.log('新規登録可能');
+
+            client.hset(req.body.uid, 'email', req.body.email, (err, reply) => {
+                client.hset(req.body.uid, 'password', req.body.password, (err, reply) => {
+                    console.log('登録完了');
+
+                    var param = {'uid': req.body.uid};
+                    res.header('Content-Type', 'application/json; charset=utf-8')
+                        .status(200)
+                        .send(param);
+                    console.log(results);
+                });
+            });
+        }
+    });
+});
+
 router.post('/login', (req, res) => {
     var sql = 'select * from users where email = ? and password = ?';
     app.connection.query(sql, [req.body.email, req.body.password], (error, results, fields) => {
