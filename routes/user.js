@@ -8,6 +8,7 @@ var app = require('./../app');
 
 router.post('/login', (req, res) => {
     app.client.get(req.body.email, (err, reply) => {
+        console.log(reply);
         if (!reply) {
             console.log('存在しない');
 
