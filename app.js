@@ -50,7 +50,7 @@ app.get('/', function (req, res) {
 */
 
 app.listen(PORT);
-http.listen(3000);
+//http.listen(PORT);
 console.log('listen on port ' + PORT);
 
 exports.client = client;
