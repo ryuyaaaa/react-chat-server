@@ -7,8 +7,8 @@ var app = require('./../app');
 /*--- /api/users/loginにPOSTアクションでアクセスしたときの処理 ---*/
 
 router.post('/login', (req, res) => {
-    app.client.get(req.body.email, (error, reply) => {
-        if (error) {
+    app.client.get(req.body.email, (err, reply) => {
+        if (!reply) {
             console.log('存在しない');
 
             var param = {'message': 'POSTアクションのリクエストに失敗しました'};
