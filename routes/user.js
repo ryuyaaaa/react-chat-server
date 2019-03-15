@@ -20,6 +20,7 @@ router.post('/login', (req, res) => {
             console.log('該当あり');
 
             app.client.hget(req.body.uid, 'password', (err, reply) => {
+                console.log(reply);
                 if (reply == req.body.password) {
                     var param = {'message': 'POSTアクションのリクエストに失敗しました'};
                     res.header('Content-Type', 'application/json; charset=utf-8')
