@@ -5,9 +5,8 @@ var app = require('./../app');
 /*--- /api/usersにGETアクションでアクセスしたときの処理 ---*/
 
 /*--- /api/users/loginにPOSTアクションでアクセスしたときの処理 ---*/
-
 router.post('/login', (req, res) => {
-    app.client.get(req.body.uid, 'email', (err, reply) => {
+    app.client.hget(req.body.uid, 'email', (err, reply) => {
         console.log(reply);
         if (!reply) {
             console.log('存在しない');
