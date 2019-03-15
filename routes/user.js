@@ -47,8 +47,11 @@ router.post('/signup', (req, res) => {
             console.log('新規登録可能');
 
             app.client.hset(req.body.uid, 'email', req.body.email, (err, reply) => {
+
+                console.log(reply);
                 app.client.hset(req.body.uid, 'password', req.body.password, (err, reply) => {
 
+                    console.log(reply);
                     var param = {'uid': req.body.uid};
                     res.header('Content-Type', 'application/json; charset=utf-8')
                         .status(200)
