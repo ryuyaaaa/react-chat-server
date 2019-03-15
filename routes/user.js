@@ -17,14 +17,23 @@ router.post('/login', (req, res) => {
                 .send(param);
             console.log(req.body);
         } else {
-            console.log('ログイン可能');
+            console.log('該当あり');
 
-            var param = {'uid': req.body.uid};
-            res.header('Content-Type', 'application/json; charset=utf-8')
-                .status(200)
-                .send(param);
-            console.log(req.body);            
-
+            app.client.hget(req.body.uid, 'password', (err, reply) => {
+                if (reply == req.body.password) {
+                    var param = {'uid': req.body.uid};
+                    res.header('Content-Type', 'application/json; charset=utf-8')
+                        .status(200)
+                        .send(param);
+                    console.log(req.body);       
+                } else {
+                    var param = {'uid': req.body.uid};
+                    res.header('Content-Type', 'application/json; charset=utf-8')
+                        .status(401)
+                        .send(param);
+                    console.log(req.body);   
+                }
+            });
         }
     });
 });
