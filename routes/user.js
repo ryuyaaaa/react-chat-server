@@ -17,6 +17,8 @@ router.post('/login', (req, res) => {
         } else {
             console.log('該当あり');
 
+            console.log(process.env.PORT);
+
             app.client.hget(req.body.uid, 'password', (err, reply) => {
                 console.log(reply);
                 if (reply === req.body.password) {
