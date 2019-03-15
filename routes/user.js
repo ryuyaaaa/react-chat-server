@@ -26,7 +26,7 @@ router.post('/signup', (req, res) => {
     client.hget(req.body.uid, 'email', (err, reply) => {
         console.log(reply);
 
-        if (reply) {
+        if (err) {
             console.log('すでに存在');
 
             var param = {'message': 'POSTアクションのリクエストに失敗しました'};
