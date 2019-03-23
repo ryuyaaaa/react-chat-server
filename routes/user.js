@@ -1,21 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var app = require('./../app');
-var { check, validationResult } = require('express-validator/check');
+var validator = require('validator');
 
 /*--- /api/users/loginにPOSTアクションでアクセスしたときの処理 ---*/
 router.post('/login', (req, res) => {
 
-    req.body.email.check('email').isEmail(),
-    req.body.password.check('password').isLength({ min: 4 , max: 16 }),
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
+    if (!validator.isEmail(req.body.email) || !validator.isLength({min: 4, max: 16})) {
         var param = {'message': 'バリデーションエラー'};
-        return res.status(422)
+            res.header('Content-Type', 'application/json; charset=utf-8')
+                .status(422)
                 .send(param);
     }
-    
+
     app.client.hget(req.body.uid, 'email', (err, reply) => {
         console.log(reply);
         if (!reply) {
