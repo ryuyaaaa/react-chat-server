@@ -4,7 +4,19 @@ var app = require('./../app');
 var { check, validationResult } = require('express-validator/check');
 
 /*--- /api/users/loginにPOSTアクションでアクセスしたときの処理 ---*/
-router.post('/login', (req, res) => {
+router.post('/login', [
+    check(this.state.email).isEmail(),
+    check(this.state.password).isLength({ min: 4 , max: 16 }),
+], (req, res) => {
+
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        var param = {'message': 'バリデーションエラー'};
+        return res.status(422)
+                .send(param);
+    }
+    
     app.client.hget(req.body.uid, 'email', (err, reply) => {
         console.log(reply);
         if (!reply) {
@@ -41,7 +53,19 @@ router.post('/login', (req, res) => {
 });
 
 /*--- /api/users/signupにPOSTアクションでアクセスしたときの処理 ---*/
-router.post('/signup', (req, res) => {
+router.post('/signup', [
+    check(this.state.email).isEmail(),
+    check(this.state.password).isLength({ min: 4 , max: 16 }),
+], (req, res) => {
+    
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        var param = {'message': 'バリデーションエラー'};
+        return res.status(422)
+                .send(param);
+    }
+
     app.client.hget(req.body.uid, 'email', (err, reply) => {
         console.log(reply);
 
@@ -57,6 +81,9 @@ router.post('/signup', (req, res) => {
             console.log('新規登録可能');
 
             app.client.hset(req.body.uid, 'email', req.body.email, (err, reply) => {
+
+                check(this.state.email).isEmail();
+        check(this.state.password).isLength({ min: 4 , max: 16 });
 
                 console.log(reply);
                 app.client.hset(req.body.uid, 'password', req.body.password, (err, reply) => {
