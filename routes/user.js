@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var app = require('./../app');
+var { check, validationResult } = require('express-validator/check');
 
 /*--- /api/users/loginにPOSTアクションでアクセスしたときの処理 ---*/
 router.post('/login', (req, res) => {
@@ -9,7 +10,7 @@ router.post('/login', (req, res) => {
         if (!reply) {
             console.log('存在しない');
 
-            var param = {'message': 'POSTアクションのリクエストに失敗しました'};
+            var param = {'message': '認証に失敗しました'};
             res.header('Content-Type', 'application/json; charset=utf-8')
                 .status(401)
                 .send(param);
@@ -28,7 +29,7 @@ router.post('/login', (req, res) => {
                         .send(param);
                     console.log(req.body);       
                 } else {
-                    var param = {'message': 'POSTアクションのリクエストに失敗しました'};
+                    var param = {'message': '認証に失敗しました'};
                     res.header('Content-Type', 'application/json; charset=utf-8')
                         .status(401)
                         .send(param);
@@ -47,7 +48,7 @@ router.post('/signup', (req, res) => {
         if (reply) {
             console.log('すでに存在');
 
-            var param = {'message': 'POSTアクションのリクエストに失敗しました'};
+            var param = {'message': 'メールアドレスがすでに使われています'};
             res.header('Content-Type', 'application/json; charset=utf-8')
                 .status(422)
                 .send(param);
