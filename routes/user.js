@@ -82,9 +82,6 @@ router.post('/signup', [
 
             app.client.hset(req.body.uid, 'email', req.body.email, (err, reply) => {
 
-                check(this.state.email).isEmail();
-        check(this.state.password).isLength({ min: 4 , max: 16 });
-
                 console.log(reply);
                 app.client.hset(req.body.uid, 'password', req.body.password, (err, reply) => {
 
