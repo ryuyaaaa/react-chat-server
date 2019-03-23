@@ -6,7 +6,7 @@ var validator = require('validator');
 /*--- /api/users/loginにPOSTアクションでアクセスしたときの処理 ---*/
 router.post('/login', (req, res) => {
 
-    if (!validator.isEmail(req.body.email) || !validator.isLength({min: 4, max: 16})) {
+    if (!validator.isEmail(req.body.email) || !validator.isLength(req.body.password, {min: 4, max: 16})) {
         var param = {'message': 'バリデーションエラー'};
             res.header('Content-Type', 'application/json; charset=utf-8')
                 .status(422)
@@ -52,7 +52,7 @@ router.post('/login', (req, res) => {
 /*--- /api/users/signupにPOSTアクションでアクセスしたときの処理 ---*/
 router.post('/signup', (req, res) => {
 
-    if (!validator.isEmail(req.body.email) || !validator.isLength({min: 4, max: 16})) {
+    if (!validator.isEmail(req.body.email) || !validator.isLength(req.body.password, {min: 4, max: 16})) {
         var param = {'message': 'バリデーションエラー'};
             res.header('Content-Type', 'application/json; charset=utf-8')
                 .status(422)
