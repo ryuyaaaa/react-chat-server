@@ -4,11 +4,10 @@ var app = require('./../app');
 var { check, validationResult } = require('express-validator/check');
 
 /*--- /api/users/loginにPOSTアクションでアクセスしたときの処理 ---*/
-router.post('/login', [
-    check(this.state.email).isEmail(),
-    check(this.state.password).isLength({ min: 4 , max: 16 }),
-], (req, res) => {
+router.post('/login', (req, res) => {
 
+    req.body.email.check('email').isEmail(),
+    req.body.password.check('password').isLength({ min: 4 , max: 16 }),
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
