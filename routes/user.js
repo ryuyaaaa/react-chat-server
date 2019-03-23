@@ -11,6 +11,7 @@ router.post('/login', (req, res) => {
             res.header('Content-Type', 'application/json; charset=utf-8')
                 .status(422)
                 .send(param);
+                console.log(req.body);
     } else {
         app.client.hget(req.body.uid, 'email', (err, reply) => {
             console.log(reply);
@@ -56,6 +57,7 @@ router.post('/signup', (req, res) => {
             res.header('Content-Type', 'application/json; charset=utf-8')
                 .status(422)
                 .send(param);
+                console.log(req.body);
     } else {
         app.client.hget(req.body.uid, 'email', (err, reply) => {
             console.log(reply);
